@@ -1,15 +1,11 @@
 {
-    "Brainco.get_Attention_Value|block": "专注度 %level",
-    "Brainco.value_level.high": "专注度大于65",
-    "Brainco.value_level.high|block": "高",
-    "Brainco.value_level.low": "专注度大于35",
-    "Brainco.value_level.low|block": "低",
-    "Brainco.value_level.middle": "专注度大于50",
-    "Brainco.value_level.middle|block": "中",
-    "Brainco.get_Up_Data|block": "接收到向上",
-    "Brainco.get_Down_Data|block": "接收到向下",
-    "Brainco.get_Left_Data|block": "接收到向左",
-    "Brainco.get_Right_Data|block": "接收到向右",
-    "Brainco.get_Shoot_Data|block": "接收到发射",
-    "{id:category}Brainco": "Brainco"
+  "Brainco.value_level.high": "专注度大于65",
+  "Brainco.value_level.low": "专注度大于35",
+  "Brainco.value_level.middle": "专注度大于50",
+  "Brainco.get_Attention_Value": "低：专注度大于35；中：专注度大于50；高：专注度大于65；",
+  "Brainco.get_Up_Data": "检测是否接收到向上",
+  "Brainco.get_Down_Data": "检测是否接收到向下",
+  "Brainco.get_Left_Data": "检测是否接收到向左",
+  "Brainco.get_Right_Data": "检测是否接收到向右",
+  "Brainco.get_Shoot_Data": "检测是否接收到发射"
 }
