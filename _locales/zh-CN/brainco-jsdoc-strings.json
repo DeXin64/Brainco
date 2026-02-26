@@ -3,9 +3,10 @@
   "Brainco.value_level.low": "专注度大于35",
   "Brainco.value_level.middle": "专注度大于50",
   "Brainco.get_Attention_Value": "低：专注度大于35；中：专注度大于50；高：专注度大于65；",
-  "Brainco.get_Up_Data": "检测是否接收到向上",
-  "Brainco.get_Down_Data": "检测是否接收到向下",
-  "Brainco.get_Left_Data": "检测是否接收到向左",
-  "Brainco.get_Right_Data": "检测是否接收到向右",
-  "Brainco.get_Shoot_Data": "检测是否接收到发射"
+  "Brainco.get_Command_Data": "检测是否接收到特定指令的脑电数据",
+  "Brainco.command_type.up": "向上指令（脑电数值 === 1）",
+  "Brainco.command_type.down": "向下指令（脑电数值 === 2）",
+  "Brainco.command_type.left": "向左指令（脑电数值 === 3）",
+  "Brainco.command_type.right": "向右指令（脑电数值 === 4）",
+  "Brainco.command_type.shoot": "发射指令（脑电数值 === 5）"
 }
