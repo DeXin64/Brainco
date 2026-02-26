@@ -49,4 +49,59 @@ namespace Brainco{
                 return false
         }
     }
+
+    /**
+    * Check if received "up" brainwave data (brainwave value == 1)
+    */
+    //% block="received \"up\"" blockId="GetUpData"
+    export function get_Up_Data(): boolean {
+        let value = 0
+        serial.setRxBufferSize(1)
+        value = serial.readBuffer(1)[0]
+        return value == 1
+    }
+
+    /**
+    * Check if received "down" brainwave data (brainwave value == 2)
+    */
+    //% block="received \"down\"" blockId="GetDownData"
+    export function get_Down_Data(): boolean {
+        let value = 0
+        serial.setRxBufferSize(1)
+        value = serial.readBuffer(1)[0]
+        return value == 2
+    }
+
+    /**
+    * Check if received "left" brainwave data (brainwave value == 3)
+    */
+    //% block="received \"left\"" blockId="GetLeftData"
+    export function get_Left_Data(): boolean {
+        let value = 0
+        serial.setRxBufferSize(1)
+        value = serial.readBuffer(1)[0]
+        return value == 3
+    }
+
+    /**
+    * Check if received "right" brainwave data (brainwave value == 4)
+    */
+    //% block="received \"right\"" blockId="GetRightData"
+    export function get_Right_Data(): boolean {
+        let value = 0
+        serial.setRxBufferSize(1)
+        value = serial.readBuffer(1)[0]
+        return value == 4
+    }
+
+    /**
+    * Check if received "shoot" brainwave data (brainwave value == 5)
+    */
+    //% block="received \"shoot\"" blockId="GetShootData"
+    export function get_Shoot_Data(): boolean {
+        let value = 0
+        serial.setRxBufferSize(1)
+        value = serial.readBuffer(1)[0]
+        return value == 5
+    }
 }
