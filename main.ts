@@ -50,15 +50,4 @@ namespace Brainco{
         }
     }
 
-    /**
-    * Check if received "up" brainwave data (brainwave value == 1)
-    */
-    //% block="received up data" blockId="GetUpData"
-    export function get_Up_Data(): boolean {
-        let value = 0
-        serial.setRxBufferSize(1)
-        value = serial.readBuffer(1)[0]
-        return value == 1
-    }
-
 }
