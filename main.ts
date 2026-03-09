@@ -93,6 +93,7 @@ namespace Brainco {
     export function get_Command_Data(command: command_type): boolean {
         let value = 0
         serial.setRxBufferSize(1)
+        serial.setBaudRate(9600)
         value = serial.readBuffer(1)[0]
         return value == command
         // // 将ASCII字符转换为数值
