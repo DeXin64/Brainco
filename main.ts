@@ -89,7 +89,7 @@ namespace Brainco {
         let value = 0
         serial.setRxBufferSize(1)
         value = serial.readBuffer(1)[0]
-        
+        return value == command
         // // 将ASCII字符转换为数值
         // switch (value) {
         //     case 49: return command == command_type.up;    // '1'
