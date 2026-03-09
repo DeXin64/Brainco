@@ -90,14 +90,14 @@ namespace Brainco {
         serial.setRxBufferSize(1)
         value = serial.readBuffer(1)[0]
         
-        // 将ASCII字符转换为数值
-        switch (value) {
-            case 49: return command == command_type.up;    // '1'
-            case 50: return command == command_type.down;  // '2'
-            case 51: return command == command_type.left;  // '3'
-            case 52: return command == command_type.right; // '4'
-            case 53: return command == command_type.shoot; // '5'
-            default: return false;
-        }
+        // // 将ASCII字符转换为数值
+        // switch (value) {
+        //     case 49: return command == command_type.up;    // '1'
+        //     case 50: return command == command_type.down;  // '2'
+        //     case 51: return command == command_type.left;  // '3'
+        //     case 52: return command == command_type.right; // '4'
+        //     case 53: return command == command_type.shoot; // '5'
+        //     default: return false;
+        // }
     }   
 }
