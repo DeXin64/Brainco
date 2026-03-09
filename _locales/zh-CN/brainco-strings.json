@@ -12,5 +12,6 @@
   "Brainco.command_type.left|block": "向左",
   "Brainco.command_type.right|block": "向右",
   "Brainco.command_type.shoot|block": "发射",
+  "Brainco.command_type.honk|block": "鸣笛",
   "{id:category}Brainco": "Brainco"
 }

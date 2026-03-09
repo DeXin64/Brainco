@@ -8,5 +8,6 @@
   "Brainco.command_type.down": "向下指令（脑电数值 === 2）",
   "Brainco.command_type.left": "向左指令（脑电数值 === 3）",
   "Brainco.command_type.right": "向右指令（脑电数值 === 4）",
-  "Brainco.command_type.shoot": "发射指令（脑电数值 === 5）"
+  "Brainco.command_type.shoot": "发射指令（脑电数值 === 5）",
+  "Brainco.command_type.honk": "鸣笛指令（脑电数值 === 6）"
 }

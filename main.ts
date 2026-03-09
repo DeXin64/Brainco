@@ -26,27 +26,32 @@ namespace Brainco {
          * Up command
          */
         //% block="up"
-        up = 1,
+        up = 50,
         /**
          * Down command
          */
         //% block="down"
-        down = 2,
+        down = 49,
         /**
          * Left command
          */
         //% block="left"
-        left = 3,
+        left = 51,
         /**
          * Right command
          */
         //% block="right"
-        right = 4,
+        right = 52,
         /**
          * Shoot command
          */
         //% block="shoot"
-        shoot = 5
+        shoot = 53,
+        /**
+         * Honk command
+         */
+        //% block="honk"
+        honk = 54,  
     }
 
     /**
@@ -89,15 +94,15 @@ namespace Brainco {
         let value = 0
         serial.setRxBufferSize(1)
         value = serial.readBuffer(1)[0]
-        // return value == command
+        return value == command
         // // 将ASCII字符转换为数值
-        switch (value) {
-            case 49: return command == command_type.up;    // '1'
-            case 50: return command == command_type.down;  // '2'
-            case 51: return command == command_type.left;  // '3'
-            case 52: return command == command_type.right; // '4'
-            case 53: return command == command_type.shoot; // '5'
-            default: return false;
-        }
+        // switch (value) {
+        //     case 49: return command == command_type.up;    // '1'
+        //     case 50: return command == command_type.down;  // '2'
+        //     case 51: return command == command_type.left;  // '3'
+        //     case 52: return command == command_type.right; // '4'
+        //     case 53: return command == command_type.shoot; // '5'
+        //     default: return false;
+        // }
     }   
 }
