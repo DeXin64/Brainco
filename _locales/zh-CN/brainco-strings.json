@@ -7,11 +7,11 @@
   "Brainco.value_level.middle": "专注度大于50",
   "Brainco.value_level.middle|block": "中",
   "Brainco.get_Command_Data|block": "获取脑控指令为 %command",
-  "Brainco.command_type.up|block": "向上",
-  "Brainco.command_type.down|block": "向下",
-  "Brainco.command_type.left|block": "向左",
-  "Brainco.command_type.right|block": "向右",
-  "Brainco.command_type.shoot|block": "发射",
+  "Brainco.command_type.up|block": "前进",
+  "Brainco.command_type.down|block": "后退",
+  "Brainco.command_type.left|block": "左转",
+  "Brainco.command_type.right|block": "右转",
+  "Brainco.command_type.shoot|block": "亮灯",
   "Brainco.command_type.honk|block": "鸣笛",
   "{id:category}Brainco": "Brainco"
 }
