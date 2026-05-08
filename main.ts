@@ -2,6 +2,7 @@
 namespace Brainco {
     // 初始化串口波特率为9600
     serial.setBaudRate(9600)
+    let commandCache = 0
 
     export enum value_level{
         /**
@@ -91,19 +92,21 @@ namespace Brainco {
     //% command.fieldEditor="gridpicker"
     //% command.fieldOptions.columns=3
     export function get_Command_Data(command: command_type): boolean {
-        let value = 0
         serial.setRxBufferSize(1)
         serial.setBaudRate(9600)
-        value = serial.readBuffer(1)[0]
-        return value == command
-        // // 将ASCII字符转换为数值
-        // switch (value) {
-        //     case 49: return command == command_type.up;    // '1'
-        //     case 50: return command == command_type.down;  // '2'
-        //     case 51: return command == command_type.left;  // '3'
-        //     case 52: return command == command_type.right; // '4'
-        //     case 53: return command == command_type.shoot; // '5'
-        //     default: return false;
-        // }
+
+        if (commandCache == 0) {
+            let buffer = serial.readBuffer(1)
+            if (buffer.length > 0 && buffer[0] >= command_type.down && buffer[0] <= command_type.honk) {
+                commandCache = buffer[0]
+            }
+        }
+
+        if (commandCache == command) {
+            commandCache = 0
+            return true
+        }
+
+        return false
     }   
 }

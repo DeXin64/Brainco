@@ -309,7 +309,7 @@
           </label>
           <label>
             手动发送字节，十进制或十六进制，用空格分隔
-            <input id="manualBytes" value="48 50" autocomplete="off">
+            <input id="manualBytes" value="52" autocomplete="off">
           </label>
           <div class="manual-actions">
             <button id="sendText" type="button" disabled>发送文本</button>
@@ -318,7 +318,7 @@
         </div>
 
         <p class="hint">
-          当前 `test.ts` 每判断一个命令都会读走 1 个字节，所以“上、鸣笛、左、右、射击”按钮会先发送若干个 `48` 作为占位字节，再发送真正命令字节。
+          当前扩展会缓存收到的命令字节，直到对应判断命中后再清除；每个按钮只需要发送 1 个真正命令字节。
         </p>
       </section>
 
@@ -334,14 +334,13 @@
 
   <script>
     const baudRate = 9600;
-    const filler = 48;
     const commands = [
       { id: "down", label: "下", expected: "显示 1", bytes: [49], raw: "49" },
-      { id: "up", label: "上", expected: "显示 2", bytes: [filler, 50], raw: "48 50" },
-      { id: "honk", label: "鸣笛", expected: "显示 3", bytes: [filler, filler, 54], raw: "48 48 54" },
-      { id: "left", label: "左", expected: "显示 4", bytes: [filler, filler, filler, 51], raw: "48 48 48 51" },
-      { id: "right", label: "右", expected: "显示 5", bytes: [filler, filler, filler, filler, 52], raw: "48 48 48 48 52" },
-      { id: "shoot", label: "射击", expected: "显示 6", bytes: [filler, filler, filler, filler, filler, 53], raw: "48 48 48 48 48 53" }
+      { id: "up", label: "上", expected: "显示 2", bytes: [50], raw: "50" },
+      { id: "honk", label: "鸣笛", expected: "显示 3", bytes: [54], raw: "54" },
+      { id: "left", label: "左", expected: "显示 4", bytes: [51], raw: "51" },
+      { id: "right", label: "右", expected: "显示 5", bytes: [52], raw: "52" },
+      { id: "shoot", label: "射击", expected: "显示 6", bytes: [53], raw: "53" }
     ];
 
     const els = {
