@@ -97,8 +97,17 @@ namespace Brainco {
 
         if (commandCache == 0) {
             let buffer = serial.readBuffer(1)
-            if (buffer.length > 0 && buffer[0] >= command_type.down && buffer[0] <= command_type.honk) {
-                commandCache = buffer[0]
+            if (buffer.length > 0) {
+                switch (buffer[0]) {
+                    case command_type.up:
+                    case command_type.down:
+                    case command_type.left:
+                    case command_type.right:
+                    case command_type.shoot:
+                    case command_type.honk:
+                        commandCache = buffer[0]
+                        break
+                }
             }
         }
 
