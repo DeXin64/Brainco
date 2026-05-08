@@ -6,5 +6,12 @@
   "Brainco.value_level.low|block": "low",
   "Brainco.value_level.middle": "Attention greater than 50",
   "Brainco.value_level.middle|block": "middle",
+  "Brainco.get_Command_Data|block": "Get command %command",
+  "Brainco.command_type.up|block": "up",
+  "Brainco.command_type.down|block": "down",
+  "Brainco.command_type.left|block": "left",
+  "Brainco.command_type.right|block": "right",
+  "Brainco.command_type.shoot|block": "shoot",
+  "Brainco.command_type.honk|block": "stop",
   "{id:category}Brainco": "Brainco"
 }

@@ -2,5 +2,12 @@
   "Brainco.value_level.high": "Attention greater than 65",
   "Brainco.value_level.low": "Attention greater than 35",
   "Brainco.value_level.middle": "Attention greater than 50",
-  "Brainco.get_Attention_Value":"Low:Attention greater than 35,Middle:Attention greater than 50,High:Attention greater than 65."
+  "Brainco.get_Attention_Value":"Low:Attention greater than 35,Middle:Attention greater than 50,High:Attention greater than 65.",
+  "Brainco.get_Command_Data": "Check if received specific command brainwave data",
+  "Brainco.command_type.up": "Up command",
+  "Brainco.command_type.down": "Down command",
+  "Brainco.command_type.left": "Left command",
+  "Brainco.command_type.right": "Right command",
+  "Brainco.command_type.shoot": "Shoot command",
+  "Brainco.command_type.honk": "Stop command"
 }
