@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Brainco 串口命令测试</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f4f6f8;
+      --panel: #ffffff;
+      --text: #17202a;
+      --muted: #5d6d7e;
+      --line: #d8dee6;
+      --accent: #1769aa;
+      --accent-dark: #0d4777;
+      --ok: #12805c;
+      --danger: #b3261e;
+      --shadow: 0 10px 25px rgba(23, 32, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Segoe UI", Arial, "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    main {
+      width: min(1100px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0;
+    }
+
+    header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: clamp(24px, 4vw, 34px);
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .status {
+      min-width: 136px;
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      color: var(--muted);
+      text-align: center;
+      font-size: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .status.connected {
+      border-color: rgba(18, 128, 92, 0.35);
+      color: var(--ok);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.65fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 17px;
+      letter-spacing: 0;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    button {
+      appearance: none;
+      min-height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--text);
+      padding: 0 14px;
+      font: inherit;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    button:hover:not(:disabled) {
+      border-color: var(--accent);
+      color: var(--accent-dark);
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.48;
+    }
+
+    .primary {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .primary:hover:not(:disabled) {
+      background: var(--accent-dark);
+      color: #fff;
+    }
+
+    .danger {
+      color: var(--danger);
+    }
+
+    .commands {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      padding: 18px;
+    }
+
+    .command {
+      display: grid;
+      grid-template-rows: auto auto auto;
+      gap: 6px;
+      min-height: 118px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfd;
+      text-align: left;
+    }
+
+    .command strong {
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+
+    .command span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .command code {
+      overflow-wrap: anywhere;
+      color: var(--accent-dark);
+      font-size: 12px;
+    }
+
+    .manual {
+      display: grid;
+      gap: 12px;
+      padding: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    label {
+      display: grid;
+      gap: 7px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    input {
+      width: 100%;
+      min-height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 0 12px;
+      color: var(--text);
+      font: inherit;
+      font-size: 14px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(23, 105, 170, 0.14);
+    }
+
+    .manual-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .log {
+      height: 440px;
+      overflow: auto;
+      padding: 14px;
+      background: #101820;
+      color: #d9e7f2;
+      border-radius: 0 0 8px 8px;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 13px;
+      line-height: 1.55;
+      white-space: pre-wrap;
+    }
+
+    .hint {
+      padding: 14px 18px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 840px) {
+      header {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .commands {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 540px) {
+      main {
+        width: min(100% - 20px, 1100px);
+        padding: 16px 0;
+      }
+
+      .commands {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .toolbar button,
+      .manual-actions button {
+        flex: 1 1 130px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div>
+        <h1>Brainco 串口命令测试</h1>
+        <p class="subtitle">连接 micro:bit USB 串口后点击命令按钮，板子应显示对应数字。串口参数：9600 baud。</p>
+      </div>
+      <div id="status" class="status">未连接</div>
+    </header>
+
+    <div class="layout">
+      <section>
+        <div class="section-head">
+          <h2>命令按钮</h2>
+          <div class="toolbar">
+            <button id="connect" class="primary" type="button">连接串口</button>
+            <button id="disconnect" class="danger" type="button" disabled>断开</button>
+          </div>
+        </div>
+
+        <div id="commands" class="commands"></div>
+
+        <div class="manual">
+          <label>
+            手动发送文本
+            <input id="manualText" value="1" autocomplete="off">
+          </label>
+          <label>
+            手动发送字节，十进制或十六进制，用空格分隔
+            <input id="manualBytes" value="48 50" autocomplete="off">
+          </label>
+          <div class="manual-actions">
+            <button id="sendText" type="button" disabled>发送文本</button>
+            <button id="sendBytes" type="button" disabled>发送字节</button>
+          </div>
+        </div>
+
+        <p class="hint">
+          当前 `test.ts` 每判断一个命令都会读走 1 个字节，所以“上、鸣笛、左、右、射击”按钮会先发送若干个 `48` 作为占位字节，再发送真正命令字节。
+        </p>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <h2>串口日志</h2>
+          <button id="clearLog" type="button">清空日志</button>
+        </div>
+        <div id="log" class="log" aria-live="polite"></div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const baudRate = 9600;
+    const filler = 48;
+    const commands = [
+      { id: "down", label: "下", expected: "显示 1", bytes: [49], raw: "49" },
+      { id: "up", label: "上", expected: "显示 2", bytes: [filler, 50], raw: "48 50" },
+      { id: "honk", label: "鸣笛", expected: "显示 3", bytes: [filler, filler, 54], raw: "48 48 54" },
+      { id: "left", label: "左", expected: "显示 4", bytes: [filler, filler, filler, 51], raw: "48 48 48 51" },
+      { id: "right", label: "右", expected: "显示 5", bytes: [filler, filler, filler, filler, 52], raw: "48 48 48 48 52" },
+      { id: "shoot", label: "射击", expected: "显示 6", bytes: [filler, filler, filler, filler, filler, 53], raw: "48 48 48 48 48 53" }
+    ];
+
+    const els = {
+      status: document.querySelector("#status"),
+      connect: document.querySelector("#connect"),
+      disconnect: document.querySelector("#disconnect"),
+      commands: document.querySelector("#commands"),
+      log: document.querySelector("#log"),
+      clearLog: document.querySelector("#clearLog"),
+      manualText: document.querySelector("#manualText"),
+      manualBytes: document.querySelector("#manualBytes"),
+      sendText: document.querySelector("#sendText"),
+      sendBytes: document.querySelector("#sendBytes")
+    };
+
+    let port = null;
+    let writer = null;
+    let reader = null;
+    let keepReading = false;
+
+    function log(message, type = "info") {
+      const time = new Date().toLocaleTimeString();
+      const prefix = type === "error" ? "ERR" : type === "rx" ? "RX " : "TX ";
+      els.log.textContent += `[${time}] ${prefix} ${message}\n`;
+      els.log.scrollTop = els.log.scrollHeight;
+    }
+
+    function setConnected(isConnected) {
+      els.status.textContent = isConnected ? "已连接" : "未连接";
+      els.status.classList.toggle("connected", isConnected);
+      els.connect.disabled = isConnected;
+      els.disconnect.disabled = !isConnected;
+      els.sendText.disabled = !isConnected;
+      els.sendBytes.disabled = !isConnected;
+      document.querySelectorAll("[data-command]").forEach((button) => {
+        button.disabled = !isConnected;
+      });
+    }
+
+    function renderCommands() {
+      els.commands.innerHTML = "";
+      for (const command of commands) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "command";
+        button.dataset.command = command.id;
+        button.disabled = true;
+        button.innerHTML = `
+          <strong>${command.label}</strong>
+          <span>${command.expected}</span>
+          <code>${command.raw}</code>
+        `;
+        button.addEventListener("click", () => sendBytes(command.bytes, command.label));
+        els.commands.appendChild(button);
+      }
+    }
+
+    async function connect() {
+      if (!("serial" in navigator)) {
+        log("当前浏览器不支持 Web Serial API，请使用 Chrome 或 Edge。", "error");
+        return;
+      }
+
+      try {
+        port = await navigator.serial.requestPort();
+        await port.open({ baudRate });
+        writer = port.writable.getWriter();
+        keepReading = true;
+        setConnected(true);
+        log(`串口已打开，baudRate=${baudRate}`);
+        readLoop();
+      } catch (error) {
+        log(error.message || String(error), "error");
+        await disconnect();
+      }
+    }
+
+    async function disconnect() {
+      keepReading = false;
+
+      try {
+        if (reader) {
+          const activeReader = reader;
+          await activeReader.cancel();
+          try {
+            activeReader.releaseLock();
+          } catch (_) {
+            // The read loop may have released it first.
+          }
+          if (reader === activeReader) reader = null;
+        }
+      } catch (error) {
+        log(error.message || String(error), "error");
+      }
+
+      try {
+        if (writer) {
+          writer.releaseLock();
+          writer = null;
+        }
+        if (port) {
+          await port.close();
+          port = null;
+        }
+      } catch (error) {
+        log(error.message || String(error), "error");
+      }
+
+      setConnected(false);
+      log("串口已断开");
+    }
+
+    async function readLoop() {
+      while (port && port.readable && keepReading) {
+        const activeReader = port.readable.getReader();
+        reader = activeReader;
+        try {
+          while (keepReading) {
+            const { value, done } = await activeReader.read();
+            if (done) break;
+            if (value) {
+              const bytes = Array.from(value);
+              const text = new TextDecoder().decode(value);
+              log(`${bytes.join(" ")}${text.trim() ? ` | ${text}` : ""}`, "rx");
+            }
+          }
+        } catch (error) {
+          if (keepReading) log(error.message || String(error), "error");
+        } finally {
+          reader.releaseLock();
+          reader = null;
+        }
+      }
+    }
+
+    async function sendBytes(bytes, label = "手动字节") {
+      if (!writer) {
+        log("请先连接串口。", "error");
+        return;
+      }
+
+      try {
+        const data = new Uint8Array(bytes);
+        await writer.write(data);
+        const asChars = bytes.map((byte) => byte >= 32 && byte <= 126 ? String.fromCharCode(byte) : ".").join("");
+        log(`${label}: ${bytes.join(" ")} | ${asChars}`);
+      } catch (error) {
+        log(error.message || String(error), "error");
+      }
+    }
+
+    async function sendText() {
+      const value = els.manualText.value;
+      const bytes = Array.from(new TextEncoder().encode(value));
+      await sendBytes(bytes, "手动文本");
+    }
+
+    function parseByteInput(value) {
+      return value
+        .split(/[\s,，]+/)
+        .map((part) => part.trim())
+        .filter(Boolean)
+        .map((part) => {
+          const byte = part.toLowerCase().startsWith("0x") ? Number.parseInt(part, 16) : Number.parseInt(part, 10);
+          if (!Number.isInteger(byte) || byte < 0 || byte > 255) {
+            throw new Error(`非法字节：${part}`);
+          }
+          return byte;
+        });
+    }
+
+    async function sendManualBytes() {
+      try {
+        const bytes = parseByteInput(els.manualBytes.value);
+        await sendBytes(bytes, "手动字节");
+      } catch (error) {
+        log(error.message || String(error), "error");
+      }
+    }
+
+    renderCommands();
+    setConnected(false);
+    els.connect.addEventListener("click", connect);
+    els.disconnect.addEventListener("click", disconnect);
+    els.clearLog.addEventListener("click", () => {
+      els.log.textContent = "";
+    });
+    els.sendText.addEventListener("click", sendText);
+    els.sendBytes.addEventListener("click", sendManualBytes);
+
+    window.addEventListener("beforeunload", () => {
+      if (reader) reader.cancel();
+      if (writer) writer.releaseLock();
+    });
+  </script>
+</body>
+</html>

@@ -26,32 +26,32 @@ namespace Brainco {
          * Up command
          */
         //% block="up"
-        up = 49,
+        up = 50,
         /**
          * Down command
          */
         //% block="down"
-        down = 50,
+        down = 49,
         /**
          * Left command
          */
         //% block="left"
-        left = 54,
+        left = 51,
         /**
          * Right command
          */
         //% block="right"
-        right = 51,
+        right = 52,
         /**
          * Shoot command
          */
         //% block="shoot"
-        shoot = 52,
+        shoot = 53,
         /**
-         * Stop command
+         * Honk command
          */
-        //% block="stop"
-        honk = 53,  
+        //% block="honk"
+        honk = 54,  
     }
 
     /**
