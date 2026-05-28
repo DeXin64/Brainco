@@ -37,22 +37,22 @@ namespace Brainco {
          * Left command
          */
         //% block="left"
-        left = 54,
+        left = 51,
         /**
          * Right command
          */
         //% block="right"
-        right = 51,
+        right = 52,
         /**
          * Shoot command
          */
         //% block="shoot"
-        shoot = 52,
+        shoot = 53,
         /**
          * Honk command
          */
         //% block="honk"
-        honk = 53,  
+        honk = 54,  
     }
 
     /**
