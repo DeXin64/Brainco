@@ -13,6 +13,6 @@
   "Brainco.command_type.right|block": "向右",
   "Brainco.command_type.shoot|block": "发射",
   "Brainco.command_type.honk|block": "停止",
-  "{id:category}Brainco": "Brainco"
+  "{id:category}Brainco": "脑控指令"
 }
 
