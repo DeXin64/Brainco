@@ -1,4 +1,4 @@
-//%color=#921AFF icon="\uf118" block="Brainco" blockId="Brainco"
+//%color=#921AFF icon="\uf118" block="\u8111\u63a7\u6307\u4ee4" blockId="Brainco"
 namespace Brainco {
     // 初始化串口波特率为9600
     serial.setBaudRate(9600)
